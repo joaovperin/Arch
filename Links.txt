@@ -1,0 +1,10 @@
+# Basic installation guide
+https://wiki.archlinux.org/index.php/installation_guide
+
+
+# Instalation for VirtualBOX VM
+https://www.howtoforge.com/tutorial/install-arch-linux-on-virtualbox/
+
+
+# Install DEEPIN DE
+https://www.ostechnix.com/install-deepin-desktop-environment-arch-linux/

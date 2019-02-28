@@ -2,6 +2,21 @@ Load the keyboard mapping. For my kbd, the command is:
 
   loadkeys br-abnt2
 
+Connect to the internet!
+
+  rfkill unblock wifi
+  wifi-menu
+  ping 8.8.8.8            -> to test :D
+
+Configure system clock to local time:
+
+  hwclock --systohc
+  timedatectl set-ntp true
+  timedatectl set-local-rtc 1
+  timedatectl set-timezone America/Sao_Paulo
+  
+https://wiki.archlinux.org/index.php/System_time
+
 Create the partitions!
 
   fdisk /dev/sda          -> /root, /boot and /home
@@ -12,17 +27,27 @@ List the partitions:
   
 Format and mount the partitions:
 
-mkfs.vfat /dev/sda1        -> Boot partition
-mkfs.ext4 /dev/sdaX        -> Data partitions
+  mkfs.vfat /dev/sda1        -> Boot partition
+  mkfs.ext4 /dev/sda2        -> Data partitions
+  mkfs.ext4 /dev/sda3        -> Data partitions
 
-mkdir /mnt /mnt/boot /mnt/home
+  mkdir /mnt/boot /mnt/home
 
-mount /dev/sdaX /mnt
-mount /dev/sda1 /mnt/boot
-mount /dev/sda2 /mnt/home
+  mount /dev/sda2 /mnt
+  mount /dev/sda1 /mnt/boot
+  mount /dev/sda3 /mnt/home
 
-...
-pacstrap /mnt base base-devel vim dialog
+Install arch base packages
+
+  pacstrap /mnt base base-devel vim dialog
+  
+Now you can login into vm:
+  
+  arch-chroot /mnt
+  
+  
+...TO BE CONTINUED.
+  
 
 GRAPHICAL UI:
 
@@ -35,6 +60,10 @@ pacman -S virtualbox virtualbox-guest-utils
 systemctl enable vboxservice
 
 sudo pacman -S lightdm-deepin-greeter
+sudo pacman -S dbus
+systemctl stop dbus
+systemctl enable lightdm
+reboot now
 
 
 LINKS: 

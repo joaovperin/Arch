@@ -41,10 +41,65 @@ Install arch base packages
 
   pacstrap /mnt base base-devel vim dialog
   
+Once it's installed, now generate the fstab to make the mounts persistent:
+
+  genfstab -U /mnt >> /mnt/etc/fstab
+  
 Now you can login into vm:
   
   arch-chroot /mnt
+
+Create the symlink to sync local time
   
+  ln -sf /usr/share/zoneinfo/Brazil/West /etc/localtime
+  
+Synchronize system clock to machine's:
+
+  hwclock --systohc
+  
+Configure locale. Run
+
+  vim /etc/locale.gen
+  
+...and uncomment following lines:
+
+  en_US.UTF-8 UTF-8
+  en_US.ISO8859-1
+  pt_BR.UTF-8 UTF-8
+  pt_BR.ISO8859-1
+  
+Generate locale configs:
+
+  locale-gen
+
+Edit the system language and keyboard layout (make persistent):
+
+  echo LANG=pt_BR.UTF-8  > /etc/locale.conf
+  echo KEYMAP=br-abnt2  > /etc/vconsole.conf
+  
+Configure hostname and hosts file:
+
+  echo perin-archvm > /etc/hostname
+  echo 127.0.0.1	localhost >> /etc/hosts
+  echo ::1        localhost >> /etc/hosts  
+  echo 127.0.1.1  perin-archvm.localdomain perin-archvm >> /etc/hosts    
+  
+
+Build system image for boot
+
+  mkinitcpio -p linux
+  
+Set root password
+
+  passwd
+  
+(Optional) Create new users
+
+  user add [...]
+  
+Install boot loader:
+
+too many options... you can use grub, grub2, refind...
   
 ...TO BE CONTINUED.
   

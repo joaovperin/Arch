@@ -39,7 +39,7 @@ Format and mount the partitions:
 
 Install arch base packages
 
-  pacstrap /mnt base base-devel vim dialog
+  pacstrap /mnt base base-devel vim dialog htop
 
 If you're using a BIOS boot (VirtualBOX), run also:
 
@@ -122,6 +122,7 @@ In order to have network on the new machine, you need to enable dhcpcd service
 
   pacman -Sy dhcpcd
   systemctl enable dhcpcd
+  systemctl enable NetworkManager
 
 NOW THE MACHINE IS READY TO USE, BUT IT DON'T HAVE A GUI.
 
@@ -162,6 +163,13 @@ systemctl enable lightdm
 reboot now
 
 IF YOU DID EVERYTHING OKAY, YOUR SYSTEM IS NOW READY TO BE USED :D
+
+STEAM:
+You have to use AUR. I'm using yay as an aur-helper:
+https://github.com/Jguer/yay
+
+  yay -S steam steam-fonts ttf-ms-fonts
+  yay -S wine playonlinux gecko wine-mono
 
 LINKS:
 https://www.youtube.com/watch?v=SfnsmL72K-g
